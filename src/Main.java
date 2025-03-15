@@ -1,11 +1,10 @@
 import employe.EmployeeList;
-import exception.MinimumWageException;
-import payrollmanager.PayrollReader;
+import payrollmanager.FileManager;
 
 public class Main {
     public static void main(String[] args) {
 
-        PayrollReader fileReader = new PayrollReader("payroll.txt");
+        FileManager fileReader = new FileManager("payroll.txt");
         EmployeeList elist = new EmployeeList();
 
         fileReader.getEmployees(elist);
