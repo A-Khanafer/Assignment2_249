@@ -1,2 +1,1 @@
-1 Hadi Khanafer 35.0 120.0
-2h Ahmad Khanafer 43.0 15.0
+1 Hadi Khanafer 2 550

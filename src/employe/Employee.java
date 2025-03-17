@@ -1,8 +1,7 @@
 package employe;
 
+import deductions.*;
 import exception.MinimumWageException;
-
-import java.util.Objects;
 
 public class Employee {
 
@@ -12,7 +11,13 @@ public class Employee {
     private String surname;
     private double wage;
     private double hoursWorked;
-    private double annualSalary;
+    private double annualGrossSalary;
+    private double deductions;
+    private Deductions[] deductionsCalculator = {new ProvincalIncomeTax(),
+                                                 new FederalIncomeTax(),
+                                                 new QuebecPensionPlan(),
+                                                 new EmploymentInsurance(),
+                                                 new QuebecParentalInsurancePlan()};
 
     public Employee(long id, String name, String surname, double hoursWorked, double wage) throws MinimumWageException {
         if(wage < 15.75)
@@ -22,7 +27,8 @@ public class Employee {
         this.surname = surname;
         this.wage = wage;
         this.hoursWorked = hoursWorked;
-        annualSalary = wage * hoursWorked*52.0;
+        this.annualGrossSalary = wage * hoursWorked*52.0;
+
     }
 
     public Employee() {
@@ -31,7 +37,7 @@ public class Employee {
         surname = "";
         wage = 0;
         hoursWorked = 0;
-        annualSalary = 0;
+        annualGrossSalary = 0;
     }
 
     public Employee(Employee employee) {
@@ -40,9 +46,71 @@ public class Employee {
         this.surname = employee.surname;
         this.wage = employee.wage;
         this.hoursWorked = employee.hoursWorked;
-        this.annualSalary = employee.annualSalary;
+        this.annualGrossSalary = employee.annualGrossSalary;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public double getWage() {
+        return wage;
+    }
+
+    public void setWage(double wage) {
+        this.wage = wage;
+    }
+
+    public double getHoursWorked() {
+        return hoursWorked;
+    }
+
+    public void setHoursWorked(double hoursWorked) {
+        this.hoursWorked = hoursWorked;
+    }
+
+    public double getAnnualGrossSalary() {
+        return annualGrossSalary;
+    }
+
+    public void setAnnualGrossSalary(double annualGrossSalary) {
+        this.annualGrossSalary = annualGrossSalary;
+    }
+
+    public double getDeductions() {
+        return deductions;
+    }
+
+    public void setDeductions(double deductions) {
+        this.deductions = deductions;
+    }
+
+    public void calculateDeductions() {
+        for (Deductions deduction : deductionsCalculator) {
+            deduction.calculateTax(this);
+        }
+        System.out.println("This is The Deductions : " + deductions );
+    }
     @Override
     public String toString() {
         return "Employee{" +
@@ -51,7 +119,7 @@ public class Employee {
                 ", surname='" + surname + '\'' +
                 ", hoursWorked=" + hoursWorked +
                 ", wage=" + wage +
-                ", annualSalary=" + annualSalary +
+                ", annualSalary=" + annualGrossSalary +
                 '}';
     }
 
@@ -62,7 +130,7 @@ public class Employee {
         return id == employee.id &&
                 wage == employee.wage &&
                 hoursWorked == employee.hoursWorked &&
-                annualSalary == employee.annualSalary &&
+                annualGrossSalary == employee.annualGrossSalary &&
                 name.equals(employee.name) &&
                 surname.equals(employee.surname);
     }

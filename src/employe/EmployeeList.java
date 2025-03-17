@@ -47,6 +47,11 @@ public class EmployeeList {
         }
     }
 
+    public void calculateDeductions() {
+        for (Employee employee : employeeList) {
+            employee.calculateDeductions();
+        }
+    }
     @Override
     public String toString() {
         String s = "List : \n";
