@@ -115,14 +115,8 @@ public class Employee {
     }
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", hoursWorked=" + hoursWorked +
-                ", wage=" + wage +
-                ", annualSalary=" + annualGrossSalary +
-                '}';
+        return String.format("%-20s %-20s %-20s %20.2f %20.2f %20.2f",
+                this.id, this.name, this.surname, this.annualGrossSalary, this.deductions, (annualGrossSalary-deductions));
     }
 
     @Override
