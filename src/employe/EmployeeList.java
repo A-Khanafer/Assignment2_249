@@ -1,5 +1,8 @@
 package employe;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 public class EmployeeList {
@@ -47,17 +50,30 @@ public class EmployeeList {
         }
     }
 
-    public void calculateDeductions() {
-        for (Employee employee : employeeList) {
-            employee.calculateDeductions();
-        }
-    }
     @Override
     public String toString() {
-        String s = "List : \n";
+        String s = "";
         for (Employee employee : employeeList) {
             s += employee.toString() + "\n";
         }
         return s;
     }
+    public void display(){
+        try {
+            PrintWriter printWriter = new PrintWriter(new FileOutputStream("employees.txt"));
+            printWriter.println("\t\t\t\t\t\t\t\t\t\t\tCherkawi & Khanafer Solutions");
+            printWriter.println("\t\t\t\t\t\t\t\t\t\t\t-----------------------------");
+            printWriter.printf("%-20s %-20s %-20s %20s %20s %20s%n",
+            "ID", "FirstName", "LastName", "Gross salary", "Deductions", "Net salary");
+            printWriter.println("number");
+
+            printWriter.println("---------------------------------------------------------------------------------------------------------------------------------");
+            printWriter.println(toString());
+            printWriter.close();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println(e.getStackTrace());
+        }
+    }
+
 }
